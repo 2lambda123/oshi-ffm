@@ -4,6 +4,7 @@
  */
 package ooo.oshi.util;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -84,7 +85,7 @@ public final class ExecutingCommand {
     public static List<String> runNative(String[] cmdToRunWithArgs, String[] envp) {
         Process p = null;
         try {
-            p = Runtime.getRuntime().exec(cmdToRunWithArgs, envp);
+            p = SystemCommand.runCommand(Runtime.getRuntime(), cmdToRunWithArgs, envp);
             return getProcessOutput(p, cmdToRunWithArgs);
         } catch (SecurityException | IOException e) {
             LOG.trace("Couldn't run command {}: {}", Arrays.toString(cmdToRunWithArgs), e.getMessage());
